@@ -2,7 +2,7 @@ VERSION = 2
 PATCHLEVEL = 6
 SUBLEVEL = 29
 EXTRAVERSION =
-NAME = Temporary Tasmanian Devil
+NAME = Resurrected Tasmanian Devil
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
