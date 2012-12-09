@@ -107,9 +107,7 @@ obj-$(CONFIG_MACH_HERO) += board-hero-mmc.o board-hero-wifi.o htc_wifi_nvs.o htc
 
 obj-$(CONFIG_MACH_SAPPHIRE) += board-sapphire.o board-sapphire-panel.o board-sapphire-keypad.o board-sapphire-gpio.o
 obj-$(CONFIG_MACH_SAPPHIRE) += board-sapphire-rfkill.o
-obj-$(CONFIG_MACH_SAPPHIRE) += board-sapphire-mmc.o board-sapphire-wifi.o
-#obj-$(CONFIG_MACH_SAPPHIRE) +=  msm_vibrator.o
-#obj-$(CONFIG_MACH_SAPPHIRE) += devices_htc.o
+obj-$(CONFIG_MACH_SAPPHIRE) += board-sapphire-mmc.o board-sapphire-wifi.o htc_wifi_nvs.o htc_awb_cal.o
 
 
 # MSM7225 boards
