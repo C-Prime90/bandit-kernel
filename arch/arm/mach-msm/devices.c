@@ -447,6 +447,7 @@ void __init msm_add_usb_devices(void (*phy_reset) (void), void (*phy_shutdown) (
 #endif
 }
 
+#ifdef CONFIG_USB_FUNCTION
 void __init msm_set_ums_device_id(int id)
 {
 	usb_mass_storage_device.id = id;
@@ -458,6 +459,7 @@ void __init msm_add_usb_id_pin_function(void (*config_usb_id_gpios)(bool enable)
 	msm_hsusb_pdata.config_usb_id_gpios = config_usb_id_gpios;
 
 }
+
 void __init msm_enable_car_kit_detect(bool enable)
 {
 	msm_hsusb_pdata.enable_car_kit_detect = enable;
@@ -491,6 +493,7 @@ void __init msm_hsusb_set_product(struct msm_hsusb_product *product,
 	msm_hsusb_pdata.products = product;
 	msm_hsusb_pdata.num_products = num_products;
 }
+#endif
 
 static struct resource resources_uart1[] = {
 	{
