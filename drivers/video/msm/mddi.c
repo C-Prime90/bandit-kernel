@@ -948,7 +948,7 @@ error_ioremap:
 	return ret;
 }
 
-static struct platform_driver mddi_driver = {
+static struct platform_driver mddi_driver __refdata = {
 	.probe = mddi_probe,
 	.driver = { .name = "msm_mddi" },
 };

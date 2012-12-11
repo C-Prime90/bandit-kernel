@@ -801,7 +801,7 @@ err_alloc:
 	return ret;
 }
 
-static struct platform_driver msm_hw3d_driver = {
+static struct platform_driver msm_hw3d_driver __refdata = {
 	.probe		= hw3d_probe,
 	.resume		= hw3d_resume,
 #ifndef CONFIG_MSM_HW3D_EARLYSUSPEND_ENABLED

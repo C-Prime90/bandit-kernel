@@ -1230,7 +1230,7 @@ static void __init sapphire_fixup(struct machine_desc *desc, struct tag *tags,
 		printk(KERN_ERR "use default  :  smisize=%d\n", smi_sz);
 	}
 #endif
-	printk("sapphire_fixup:bank size=0x%x\n", mi->bank[0].size);
+	printk("sapphire_fixup:bank size=0x%lx\n", mi->bank[0].size);
 }
 
 static void __init sapphire_map_io(void)

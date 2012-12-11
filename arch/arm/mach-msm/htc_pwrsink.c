@@ -265,7 +265,7 @@ static int __init htc_pwrsink_probe(struct platform_device *pdev)
 	return 0;
 }
 
-static struct platform_driver htc_pwrsink_driver = {
+static struct platform_driver htc_pwrsink_driver __refdata = {
 	.probe = htc_pwrsink_probe,
 	.suspend_late = htc_pwrsink_suspend_late,
 	.resume_early = htc_pwrsink_resume_early,

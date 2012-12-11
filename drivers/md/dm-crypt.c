@@ -688,8 +688,9 @@ static void kcryptd_io(struct work_struct *work)
 
 static void kcryptd_queue_io(struct dm_crypt_io *io)
 {
+#ifndef CONFIG_DM_CRYPT_GLOBAL_WORKQUEUES
 	struct crypt_config *cc = io->target->private;
-
+#endif
 	INIT_WORK(&io->work, kcryptd_io);
 	queue_work(cc->io_queue, &io->work);
 }
@@ -872,8 +873,9 @@ static void kcryptd_crypt(struct work_struct *work)
 
 static void kcryptd_queue_crypt(struct dm_crypt_io *io)
 {
+#ifndef CONFIG_DM_CRYPT_GLOBAL_WORKQUEUES
 	struct crypt_config *cc = io->target->private;
-
+#endif
 	INIT_WORK(&io->work, kcryptd_crypt);
 	queue_work(cc->crypt_queue, &io->work);
 }
@@ -1137,7 +1139,9 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
 
 bad_crypt_queue:
 	destroy_workqueue(cc->io_queue);
+#ifndef CONFIG_DM_CRYPT_GLOBAL_WORKQUEUES
 bad_io_queue:
+#endif
 	kfree(cc->iv_mode);
 bad_ivmode_string:
 	dm_put_device(ti, cc->dev);

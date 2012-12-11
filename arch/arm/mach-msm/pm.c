@@ -682,7 +682,7 @@ void msm_pm_flush_console(void)
 	release_console_sem();
 }
 
-static void msm_pm_restart(char str)
+static void msm_pm_restart(char str, const char *cmd __attribute__((unused)))
 {
 	msm_pm_flush_console();
 	/*  always reboot device through proc comm */
