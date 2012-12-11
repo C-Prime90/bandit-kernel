@@ -701,13 +701,6 @@ config MSM_HW3D
 	  Provides access to registers needed by the userspace OpenGL|ES
 	  library.
 
-config MSM_HW3D_EARLYSUSPEND_ENABLED
-        tristate "MSM Hardware 3D Driver support earlysuspend"
-        depends on MSM_HW3D
-        default y
-        help
-          Provide selection to support earlysuspend in HW3D or not.
-
 if !ARCH_QSD8X50
 config MSM_ADSP
 	tristate "MSM ADSP driver"
