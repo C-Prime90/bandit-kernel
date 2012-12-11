@@ -137,14 +137,14 @@ static struct clkctl_acpu_speed  msm72xx_tbl[] = {
 /*03*/	{ 160000, ACPU_PLL_1, 1, 5, 64000, 1, VDD_3, 61440, 0, 0, 6 },
 #endif
 /*04*/	{ 176000, ACPU_PLL_2, 2, 5, 88000, 1, VDD_3, 61440, 0, 0, 5 },
-/*05*/	{ 245760, ACPU_PLL_0, 4, 0, 81920, 2, VDD_4, 61440, 0, 0, 5 },
+/*05*/	{ 264000, ACPU_PLL_2, 2, 3, 88000, 2, VDD_3, 128000, 0, 0, 7 },
 /*06*/	{ 352000, ACPU_PLL_2, 2, 2, 88000, 3, VDD_5, 128000, 0, 3, 7 },
 #if 1 /* QCT fixup */
 /*07*/	{ 480000, ACPU_PLL_1, 1, 1, 120000, 3, VDD_6, 120000, 0, 2, -1 },
 #else /* Google */
 /*07*/	{ 480000, ACPU_PLL_1, 1, 1, 128000, 2, VDD_6, 160000, 0, 2, -1 },
 #endif
-/*08*/	{ 528000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1 },
+/*08*/	{ 518400, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1 },
 /*09*/	{ 537600, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x0A },
 /*10*/	{ 556800, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x0B },
 /*11*/	{ 576000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x0C },
@@ -192,11 +192,11 @@ static struct cpufreq_frequency_table msm7227_freq_table[] = {
 
 static struct cpufreq_frequency_table msm72xx_freq_table[] = {
 #if defined(CONFIG_TURBO_MODE) /* Table we use */
-	{ 0, 122880 },
-	{ 1, 160000 },
-	{ 2, 245760 },
-	{ 3, 480000 },
-	{ 4, 528000 },
+	{ 0,  19200 },
+	{ 1, 176000 },
+	{ 2, 264000 },
+	{ 3, 352000 },
+	{ 4, 518400 },
 	{ 5, 576000 },
 	{ 6, 614400 },
 	{ 7, 633600 },
@@ -350,7 +350,7 @@ static void acpuclk_set_div(const struct clkctl_acpu_speed *hunt_s) {
 #if defined(CONFIG_TURBO_MODE)
 	a11_div=hunt_s->a11clk_src_div;
 
-	if (hunt_s->a11clk_khz >= 528000 && hunt_s->pll2_lval > 0) {
+	if (hunt_s->a11clk_khz >= 518400 && hunt_s->pll2_lval > 0) {
 		a11_div = 0;
 		writel(hunt_s->a11clk_khz/19200, MSM_CLK_CTL_BASE+0x33c);
 		udelay(50);
