@@ -152,6 +152,13 @@ config MSM_AMSS_SUPPORT_256MB_EBI1
 	default y
 	bool "AMSS that support unified 128MB and 256MB EBI1"
 
+config 32A_RAMHACK
+	depends on MSM_AMSS_SUPPORT_256MB_EBI1
+	default y
+	bool "32A RamHack"
+	help
+	 This option takes 10mb memory from camera and gives it to ram.
+
 config MSM_DEBUG_UART
 	int
 	default 1 if MSM_DEBUG_UART1

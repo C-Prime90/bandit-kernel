@@ -1203,9 +1203,16 @@ static void __init sapphire_fixup(struct machine_desc *desc, struct tag *tags,
 	mi->nr_banks = 1;
 	mi->bank[0].start = PHYS_OFFSET;
 	mi->bank[0].node = PHYS_TO_NID(PHYS_OFFSET);
-#if	defined(CONFIG_MSM_AMSS_SUPPORT_256MB_EBI1)
+#if defined(CONFIG_MSM_AMSS_SUPPORT_256MB_EBI1)
 	if (32 == smi_sz) {
+#ifdef CONFIG_32A_RAMHACK
+                mi->nr_banks = 2;
+#endif /* 32A RamHack */
 		mi->bank[0].size = MSM_EBI_SMI32_256MB_SIZE;
+#ifdef CONFIG_32A_RAMHACK
+                mi->bank[1].start = 0x27000000;
+                mi->bank[1].size  = 0xa00000;
+#endif /* 32A RamHack */
 	} else if (64 == smi_sz){
 		mi->bank[0].size = MSM_EBI_SMI64_128MB_SIZE;
 	} else {
