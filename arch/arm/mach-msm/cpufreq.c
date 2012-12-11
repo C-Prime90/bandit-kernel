@@ -91,6 +91,16 @@ static int __init msm_cpufreq_init(struct cpufreq_policy *policy)
 	struct cpufreq_frequency_table *table =
 		cpufreq_frequency_get_table(smp_processor_id());
 
+#ifdef CONFIG_TURBO_MODE
+	policy->cur = acpuclk_get_rate();
+	if (cpufreq_frequency_table_cpuinfo(policy, table)) {
+	  policy->cpuinfo.min_freq = CONFIG_MSM_CPU_FREQ_ONDEMAND_MIN;
+	  policy->cpuinfo.max_freq = CONFIG_MSM_CPU_FREQ_ONDEMAND_MAX;
+	}
+	/* restrict cpu freq scaling range by overwriting */
+	policy->min = CONFIG_MSM_CPU_FREQ_ONDEMAND_MIN;
+	policy->max = CONFIG_MSM_CPU_FREQ_ONDEMAND_MAX;
+#else
 	BUG_ON(cpufreq_frequency_table_cpuinfo(policy, table));
 	policy->cur = acpuclk_get_rate();
 #if 0
@@ -98,10 +108,18 @@ static int __init msm_cpufreq_init(struct cpufreq_policy *policy)
 	policy->min = CONFIG_MSM_CPU_FREQ_ONDEMAND_MIN;
 	policy->max = CONFIG_MSM_CPU_FREQ_ONDEMAND_MAX;
 #endif
+#endif
 	policy->cpuinfo.transition_latency =
 		acpuclk_get_switch_time() * NSEC_PER_USEC;
 	return 0;
 }
+
+#ifdef CONFIG_TURBO_MODE
+static struct freq_attr *msm_cpufreq_attr[] = {
+	&cpufreq_freq_attr_scaling_available_freqs,
+	NULL,
+};
+#endif
 
 static struct cpufreq_driver msm_cpufreq_driver = {
 	/* lps calculations are handled here. */
@@ -110,6 +128,9 @@ static struct cpufreq_driver msm_cpufreq_driver = {
 	.verify		= msm_cpufreq_verify,
 	.target		= msm_cpufreq_target,
 	.name		= "msm",
+#ifdef CONFIG_TURBO_MODE
+	.attr           = msm_cpufreq_attr,
+#endif
 };
 
 static int __init msm_cpufreq_register(void)
