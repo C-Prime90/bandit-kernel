@@ -395,7 +395,7 @@ static void acpuclk_set_div(const struct clkctl_acpu_speed *hunt_s) {
 #if defined(CONFIG_TURBO_MODE)
 		reg_clkctl |= (a11_div << 8);
 #else
-		reg_clkctl |= (hunt_s->a11clk_src_div << 8)
+		reg_clkctl |= (hunt_s->a11clk_src_div << 8);
 #endif
 		writel(reg_clkctl, A11S_CLK_CNTL_ADDR);
 
