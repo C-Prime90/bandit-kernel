@@ -1,3 +1,7 @@
+NOTE: I built this kernel from HTC's Sapphire sources... Lots has bin done but a couple things remain noted below.... 
+
+TODO: Add GB usb gadget support so we dont need to use the function hack, Add support for building this for 32B (maybe), Clean up kconfigs, Minimize build errors, Replace ramzswap with zram....
+
 	Linux kernel release 2.6.xx <http://kernel.org/>
 
 These are the release notes for Linux version 2.6.  Read them carefully,
