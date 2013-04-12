@@ -183,26 +183,26 @@ choice
 		bool "UART3"
 endchoice
 
-comment "MSM Board Type"
+menu "MSM Board Type"
 
 config MACH_HALIBUT
 	depends on ARCH_MSM7X00A
 	default n
-	bool "Halibut Board (QCT SURF7201A)"
+	bool "Halibut Board"
 	help
 	  Support for the Qualcomm SURF7201A eval board.
 
 config MACH_TROUT
 	depends on ARCH_MSM7X00A
 	default n
-	bool "Trout (HTC Dream, T-Mobile G1, Google ADP1)"
+	bool "Trout"
 	help
-	 Select this to support HTC Dream, T-Mobile G1, Google ADP1.
+	  Support for the HTC Dream, T-Mobile G1, Google ADP1.
 
 config MACH_SWORDFISH
 	depends on ARCH_QSD8X50
 	default y
-	bool "Swordfish Board (QCT SURF8250)"
+	bool "Swordfish Board"
 	help
 	  Support for the Qualcomm SURF8250 eval board.
 
@@ -218,26 +218,26 @@ config MACH_SAPPHIRE
 	default n
 	bool "Sapphire"
 	help
-	  Support for the HTC Sapphire device.
+	  Support for the HTC Magic, MyTouch 3G.
 
 config MACH_HERO
 	depends on ARCH_MSM7X00A
 	default n
 	bool "Hero"
 	help
-	  Support for the HTC Hero device.
+	  Support for the HTC Hero.
 
 config MACH_DESIREC
         depends on ARCH_MSM7X00A
         default n
-        bool "Hero"
+        bool "DesireC"
         help
           Support for the HTC DesireC device.
 
 config MACH_HEROC
         depends on ARCH_MSM7X00A
         default n
-        bool "Hero"
+        bool "HeroC"
         help
           Support for the HTC HeroC device.
 
@@ -247,56 +247,56 @@ config MACH_ORCA
 	default n
 	bool "Orca"
 	help
-	  Select this to support the Orca device
+	  Select this to support the Orca device.
 
 config MACH_MAHIMAHI
 	depends on ARCH_QSD8X50
 	default n
 	bool "Mahi-Mahi"
 	help
-	  Select this to support the Mahi-Mahi device
+	  Select this to support the Mahi-Mahi device.
 
 config MACH_BRAVO
 	depends on ARCH_QSD8X50
 	default n
 	bool "Bravo"
 	help
-	  Select this to support the Bravo device
+	  Select this to support the Bravo device.
 
 config MACH_PASSIONC
 	depends on ARCH_QSD8X50
 	default n
 	bool "PassionC"
 	help
-	  Select this to support the PassionC device
+	  Select this to support the PassionC device.
 
 config MACH_BRAVOC
 	depends on ARCH_QSD8X50
 	default n
 	bool "BravoC"
 	help
-	  Select this to support the BravoC device
+	  Select this to support the BravoC device.
 
 config MACH_INCREDIBLE
 	depends on ARCH_QSD8X50
 	default n
 	bool "Incredible"
 	help
-	  Select this to support the Incredible device
+	  Select this to support the Incredible device.
 
 config MACH_INCREDIBLEC
 	depends on ARCH_QSD8X50
 	default n
 	bool "IncredibleC"
 	help
-	  Select this to support the IncredibleC device
+	  Select this to support the IncredibleC device.
 
 config MACH_SUPERSONIC
 	depends on ARCH_QSD8X50
 	default n
 	bool "Supersonic"
 	help
-	  Select this to support the Supersonic device
+	  Select this to support the Supersonic device.
 
 config MACH_BEE
 	depends on ARCH_MSM7225
@@ -354,16 +354,17 @@ config MACH_LIBERTY
 	help
 	  Support for Liberty (PDA phone).
 
+endmenu
 
 config TROUT_BATTCHG
-	depends on MSM_ONCRPCROUTER && POWER_SUPPLY
+	depends on MSM_ONCRPCROUTER && POWER_SUPPLY && !HTC_BATTCHG
 	default n
 	bool "Trout battery / charger driver"
 
-config TROUT_BATTCHG_DOCK
-	depends on MSM_ONCRPCROUTER && POWER_SUPPLY
-	default n
-	bool "Trout battery / charger driver"
+# config TROUT_BATTCHG_DOCK
+#	depends on MSM_ONCRPCROUTER && POWER_SUPPLY
+#	default n
+#	bool "Trout battery / charger driver"
 
 config HTC_BATTCHG
 	depends on MSM_ONCRPCROUTER && POWER_SUPPLY
@@ -384,7 +385,7 @@ config HTC_SLEEP_MODE_GPIO_DUMP
 	default y
 	bool "HTC Sleep Mode GPIO Dump"
 	help
-	   Support for dumping GPIO status when enter suspend.
+	  Support for dumping GPIO status when enter suspend.
 
 config HTC_POWER_COLLAPSE_MAGIC
 	default n
@@ -785,13 +786,11 @@ config HTC_HEADSET_V1
 	  debugger, but not with serial console.
 
 config HTC_35MM_REMOTE_V1
-	tristate "HTC 2 Wire detection driver"
+	tristate "HTC 3.5mm headset jack"
 	depends on MICROP_I2C
 	default n
 	help
-	  Provides support for detecting HTC 2 wire devices, such as wired
-	  headset, on the trout platform. Can be used with the msm serial
-	  debugger, but not with serial console.
+	  Provides support for 3.5mm headset jack devices, like wired headsets.
 
 config HTC_AUDIOJACK_V1
 	tristate "Audio Jack detection driver"
@@ -848,7 +847,7 @@ config VIRTUAL_KPANIC_PSIZE
 	int "Default kpanic partition size"
 	default 1048576
 	help
-		Sets the size of the virtual kpanic paritition to create.
+	  Sets the size of the virtual kpanic paritition to create.
 
 config QSD_HTC_FM
 	bool "QSD HTC FM"
@@ -869,7 +868,7 @@ config VIRTUAL_KPANIC_SRC
 	string "Partition to steal from"
 	default "cache"
 	help
-		Sets the partition to steal from to make the virtual one.
+	  Sets the partition to steal from to make the virtual one.
 
 config MICROP_COMMON
 	tristate "MICROP COMMON Driver"
@@ -891,7 +890,7 @@ config SMD_OFFSET_TCXO_STAT
         hex "SMD offset of accumulated tcxo off time"
         default 0x0
         help
-                TCXO off time is in tick of sleep clock, 1/32768.
+	  TCXO off time is in tick of sleep clock, 1/32768.
 
 config AXI_SCREEN_POLICY
         depends on ARCH_QSD8X50 || ARCH_MSM7X00A || ARCH_MSM7227 || ARCH_MSM7225
@@ -899,4 +898,4 @@ config AXI_SCREEN_POLICY
 	bool "Use higher AXI bus while screen ON"
 	default n
 	help
-		Simple AXI scaling based on screen ON/OFF and PWRC.
+	  Simple AXI scaling based on screen ON/OFF and PWRC.
