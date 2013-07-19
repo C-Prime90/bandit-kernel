@@ -16,6 +16,7 @@
 
 #include <mach/msm_fb.h>
 #include <mach/vreg.h>
+#include <mach/pmic.h>
 #include <mach/htc_pwrsink.h>
 
 #include "board-trout.h"

@@ -30,8 +30,8 @@
 #include <linux/android_pmem.h>
 
 #include <linux/delay.h>
+#include <linux/gpio.h>
 
-#include <asm/gpio.h>
 #include <mach/hardware.h>
 #include <asm/mach-types.h>
 #include <asm/mach/arch.h>
@@ -724,16 +724,6 @@ static uint32_t camera_on_gpio_table[] = {
 	PCOM_GPIO_CFG(15, 1, GPIO_OUTPUT, GPIO_PULL_DOWN, GPIO_16MA), /* MCLK */
 };
 
-static void config_gpio_table(uint32_t *table, int len)
-{
-	int n;
-	unsigned id;
-	for(n = 0; n < len; n++) {
-		id = table[n];
-		msm_proc_comm(PCOM_RPC_GPIO_TLMM_CONFIG_EX, &id, 0);
-	}
-}
-
 static void config_camera_on_gpios(void)
 {
 	config_gpio_table(camera_on_gpio_table,
@@ -765,7 +755,7 @@ static struct msm_acpu_clock_platform_data trout_clock_data = {
 
 #ifdef CONFIG_SERIAL_MSM_HS
 static struct msm_serial_hs_platform_data msm_uart_dm1_pdata = {
-	.rx_wakeup_irq = MSM_GPIO_TO_INT(45),
+	.wakeup_irq = MSM_GPIO_TO_INT(45),
 	.inject_rx_on_wakeup = 1,
 	.rx_to_inject = 0x32,
 };
@@ -809,7 +799,7 @@ static void __init trout_init(void)
 #ifdef CONFIG_SERIAL_MSM_HS
 	msm_device_uart_dm1.dev.platform_data = &msm_uart_dm1_pdata;
 #endif
-	msm_add_usb_devices(trout_phy_reset);
+	msm_add_usb_devices(trout_phy_reset, NULL);
 
 	msm_add_mem_devices(&pmem_setting);
 
