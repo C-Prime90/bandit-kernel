@@ -128,7 +128,7 @@ static struct clkctl_acpu_speed msm7227_tbl[] = {
 
 /* 7200a turbo mode, PLL0(mpll):245.76, PLL1(gpll):960, PLL2(bpll0):1056 */
 static struct clkctl_acpu_speed  msm72xx_tbl[] = {
-#if defined(CONFIG_TURBO_MODE) /* Table we use */
+#if defined(CONFIG_TURBO_MODE) /* Table we use for 32b */
 /*01*/	{ 19200, ACPU_PLL_TCXO, 0, 0, 19200, 0, VDD_0, 30720, 0, 0, 4 },
 /*02*/	{ 122880, ACPU_PLL_0, 4, 1, 88000, 1, VDD_3, 128000, 0, 0, 4 },
 /*03*/	{ 160000, ACPU_PLL_1, 1, 5, 88000, 1, VDD_3, 128000, 0, 0, 6 },
@@ -142,6 +142,7 @@ static struct clkctl_acpu_speed  msm72xx_tbl[] = {
 /*11*/	{ 576000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x0C },
 /*12*/	{ 595200, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x0D },
 /*13*/	{ 614400, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x0E },
+#if defined(CONFIG_32A_TURBO_MODE) /* Table we use for 32a */
 /*14*/	{ 633600, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x1F },
 /*15*/	{ 652800, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x10 },
 /*16*/	{ 672000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x11 },
@@ -149,6 +150,7 @@ static struct clkctl_acpu_speed  msm72xx_tbl[] = {
 /*18*/	{ 710400, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x13 },
 /*19*/	{ 729600, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x14 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+#endif /* CONFIG_32A_TURBO_MODE */
 #else /* HTC's stock table */
 	{ 19200, ACPU_PLL_TCXO, 0, 0, 19200, 0, VDD_0, 30720, 0, 0, 4 },
 	{ 122880, ACPU_PLL_0, 4, 1, 61440, 1, VDD_3, 61440, 0, 0, 4 },
@@ -183,7 +185,7 @@ static struct cpufreq_frequency_table msm7227_freq_table[] = {
 };
 
 static struct cpufreq_frequency_table msm72xx_freq_table[] = {
-#if defined(CONFIG_TURBO_MODE) /* Table we use */
+#if defined(CONFIG_TURBO_MODE) /* Table we use for 32b */
 	{ 0, 122880 },
 	{ 1, 176000 },
 	{ 2, 264000 },
@@ -191,6 +193,10 @@ static struct cpufreq_frequency_table msm72xx_freq_table[] = {
 	{ 4, 518400 },
 	{ 5, 576000 },
 	{ 6, 614400 },
+#if defined(CONFIG_TURBO_MODE) && !defined(CONFIG_32A_TURBO_MODE)
+	{ 7, CPUFREQ_TABLE_END },
+#endif
+#if defined(CONFIG_32A_TURBO_MODE) /* Table we use for 32a */
 	{ 7, 633600 },
 	{ 8, 652800 },
 	{ 9, 672000 },
@@ -198,6 +204,7 @@ static struct cpufreq_frequency_table msm72xx_freq_table[] = {
 	{11, 710400 },
 	{12, 729600 },
 	{13, CPUFREQ_TABLE_END },
+#endif /* CONFIG_32A_TURBO_MODE */
 #else /* HTC's stock table */
 	{ 0, 19200 },
 	{ 1, 122880 },
@@ -208,7 +215,7 @@ static struct cpufreq_frequency_table msm72xx_freq_table[] = {
 	{ 6, CPUFREQ_TABLE_END },
 #endif
 };
-#endif
+#endif /* CONFIG_CPU_FREQ */
 
 #define TABLE_CONFIG(m0, m1) { \
 	MACH_TYPE_##m0, \

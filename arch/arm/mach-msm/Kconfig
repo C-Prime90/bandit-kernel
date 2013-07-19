@@ -55,12 +55,20 @@ config MSM_MDP31
 	default y
 
 config TURBO_MODE
-	bool "Turbo mode"
+	bool "Overclocked CPU freq table"
 	depends on ARCH_MSM7225 || ARCH_MSM7X00A
-	default n
+	default y
 	help
-	  This option is used to indicate hardware support for running the
-	  memory bus at a higher speed.(only for 7X00A/7225)
+	  This option is used enable the OC'd cpu frequency table instead of
+	  HTC's stock table.
+
+config 32A_TURBO_MODE
+	bool "32A Overclocked CPU freq table"
+	depends on TURBO_MODE && MSM_AMSS_SUPPORT_256MB_EBI1
+	default y
+	help
+	  This option is used enable the furture OC'd cpu frequency table for
+	  32A devices.
 
 config PERFLOCK
 	depends on CPU_FREQ
@@ -148,7 +156,7 @@ choice
 		bool "3.2.00"
 endchoice
 config MSM_AMSS_SUPPORT_256MB_EBI1
-	depends on MSM_AMSS_VERSION_6355 && MACH_SAPPHIRE
+	depends on MACH_SAPPHIRE
 	default y
 	bool "AMSS that support unified 128MB and 256MB EBI1"
 

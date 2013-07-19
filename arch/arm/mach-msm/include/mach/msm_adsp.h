@@ -26,7 +26,9 @@ struct msm_adsp_ops {
 	 */
 	void (*event)(void *driver_data, unsigned id, size_t len,
 		      void (*getevent)(void *ptr, size_t len));
+#if defined(MSM_AMSS_VERSION_6355)
 	void (*modem_event) (void *driver_data, uint32_t image);
+#endif
 };
 
 /* Get, Put, Enable, and Disable are synchronous and must only
@@ -40,7 +42,9 @@ void msm_adsp_put(struct msm_adsp_module *module);
 int msm_adsp_enable(struct msm_adsp_module *module);
 int msm_adsp_disable(struct msm_adsp_module *module);
 int adsp_set_clkrate(struct msm_adsp_module *module, unsigned long clk_rate);
+#if defined(MSM_AMSS_VERSION_6355)
 int msm_adsp_disable_event_rsp(struct msm_adsp_module *module);
+#endif
 
 /* Write is safe to call from interrupt context.
  */
