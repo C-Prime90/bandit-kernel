@@ -39,6 +39,9 @@
 #define AUDIO_SET_AGC               _IOW(AUDIO_IOCTL_MAGIC, 12, unsigned)
 #define AUDIO_SET_NS                _IOW(AUDIO_IOCTL_MAGIC, 13, unsigned)
 #define AUDIO_SET_TX_IIR            _IOW(AUDIO_IOCTL_MAGIC, 14, unsigned)
+#if !defined(MSM_AMSS_VERSION_6355)
+#define AUDIO_PAUSE	            _IOW(AUDIO_IOCTL_MAGIC, 15, unsigned)
+#endif
 #define AUDIO_SET_AAC_CONFIG        _IOW(AUDIO_IOCTL_MAGIC, 15, unsigned)
 #define AUDIO_WAIT_ADSP_DONE        _IOR(AUDIO_IOCTL_MAGIC, 16, unsigned)
 #define AUDIO_ADSP_PAUSE            _IOR(AUDIO_IOCTL_MAGIC, 17, unsigned)

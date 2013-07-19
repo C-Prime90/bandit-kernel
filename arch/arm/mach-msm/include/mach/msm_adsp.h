@@ -88,4 +88,8 @@ int msm_adsp_write(struct msm_adsp_module *module,
 #define QDSP_MAX_NUM_QUEUES               28
 #endif
 
+#if !defined(MSM_AMSS_VERSION_6355)
+#define QDSP_QUEUE_MAX                    QDSP_MAX_NUM_QUEUES
+#endif
+
 #endif

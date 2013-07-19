@@ -127,9 +127,23 @@ typedef struct {
  */
 
 #define	VIDDEC_CMD_FRAME_HEADER_PACKET	0x0002
+#if !defined(MSM_AMSS_VERSION_6355)
+#define	VIDDEC_CMD_FRAME_HEADER_PACKET_LEN	\
+	sizeof(viddec_cmd_frame_header_packet)
+#endif
 
 #define	VIDDEC_CMD_FRAME_INFO_0_ERROR_SKIP	0x0000
 #define	VIDDEC_CMD_FRAME_INFO_0_ERROR_BLACK	0x0800
+
+#if !defined(MSM_AMSS_VERSION_6355)
+typedef struct {
+	unsigned short	packet_id;
+	unsigned short	x_dimension;
+	unsigned short	y_dimension;
+	unsigned short	frame_buffer_0_high;
+	unsigned short	frame_buffer_0_low;
+} __attribute__((packed)) viddec_cmd_frame_header_packet;
+#endif
 
 /*
  * SLICE HEADER PACKET

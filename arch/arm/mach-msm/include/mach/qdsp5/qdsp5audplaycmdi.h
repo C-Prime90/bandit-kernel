@@ -44,7 +44,9 @@ $Header: //source/qcom/qct/multimedia2/Audio/drivers/QDSP5Driver/QDSP5Interface/
 #define AUDPLAY_CMD_BITSTREAM_DATA_AVAIL_LEN	\
 	sizeof(audplay_cmd_bitstream_data_avail)
 
+#if defined(MSM_AMSS_VERSION_6355)
 #define AUDPLAY_CMD_AUDDEC_CMD_CHANNEL_INFO		0x0001
+#endif
 
 /* Type specification of dec_data_avail message sent to AUDPLAYTASK
 */
@@ -66,7 +68,9 @@ typedef struct {
 	 * kernel */
 	unsigned int partition_number;
 
+#if defined(MSM_AMSS_VERSION_6355)
 	unsigned int dsp_write_phy_addr;
+#endif
 } __attribute__((packed)) audplay_cmd_bitstream_data_avail;
 
 #define AUDPLAY_CMD_HPCM_BUF_CFG 0x0003
@@ -96,10 +100,12 @@ struct audplay_cmd_buffer_refresh {
 	unsigned int buf1_length;
 } __attribute__((packed));
 
+#if defined(MSM_AMSS_VERSION_6355)
 typedef struct {
 	/* command id */
 	unsigned int cmd_id;
 	unsigned int unused;
 	unsigned int dual_mono_mode;
 } __attribute__((packed)) audplay_cmd_channel_info;
+#endif
 #endif /* QDSP5AUDPLAYCMD_H */
